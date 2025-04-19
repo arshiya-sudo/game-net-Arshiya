@@ -1,18 +1,15 @@
 <?php
-// اتصال به دیتابیس
-$host = "localhost";
-$user = "root";
-$password = "";
-$dbname = "game_net";
+// اطلاعات اتصال به دیتابیس
+$servername = "localhost";  // آدرس سرور
+$username = "root";         // نام کاربری دیتابیس
+$password = "";             // رمز عبور دیتابیس
+$dbname = "game_net";       // نام دیتابیس
 
-// ساخت اتصال
-$conn = mysqli_connect($host, $user, $password, $dbname);
+// ایجاد اتصال به دیتابیس
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // بررسی اتصال
-if (!$conn) {
-    die("اتصال با دیتابیس ناموفق بود: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("اتصال به دیتابیس موفقیت‌آمیز نبود: " . $conn->connect_error);
 }
-
-// تنظیم charset برای پشتیبانی از فارسی
-mysqli_set_charset($conn, "utf8");
 ?>

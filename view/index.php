@@ -61,8 +61,8 @@
         </div>
     </div>
     <!-- link js -->
-   <script src="../asset/function.js">
-   </script>
+    <script src="../asset/function.js">
+    </script>
 
 </body>
 
