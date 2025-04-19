@@ -93,7 +93,6 @@
         renderSystems();
       }
     }
-
     // حذف سیستم
     function deleteSystem(index) {
       systems.splice(index, 1);
