@@ -75,3 +75,21 @@
             background-color: #ffc107;
             color: black;
         }
+        .btn-manage {
+            background: linear-gradient(135deg, #6f42c1, #4a148c);
+            color: #fff;
+            padding: 14px 28px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(111, 66, 193, 0.5);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-manage:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(111, 66, 193, 0.7);
+            background: linear-gradient(135deg, #8e24aa, #6a1b9a);
+        }

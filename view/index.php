@@ -44,7 +44,7 @@
             </tr>
         </tbody>
     </table>
-
+    <!-- start js -->
     <script>
         // نگهداری تایمرها با id سیستم
         const timers = {};
@@ -55,7 +55,7 @@
             if (!minutes || isNaN(minutes) || minutes <= 0) {
                 return alert("لطفاً یک عدد معتبر وارد کنید.");
             }
-
+            // تبدیل دقیه به ثانیه
             let totalSeconds = parseInt(minutes) * 60;
             const timerEl = document.getElementById("timer-" + id);
 
@@ -93,6 +93,15 @@
             alert("📋 جزئیات پرداختی‌های سیستم " + id + " در آینده نمایش داده می‌شود.");
         }
     </script>
+    <!-- end js -->
+    <div style="text-align:center; margin-top: 50px;">
+        <a href="manage.html" style="text-decoration: none;">
+            <button class="btn-manage">مدیریت سیستم‌ها ⚙️</button>
+        </a>
+    </div>
+
+
+
 
 </body>
 
