@@ -16,35 +16,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <title>گیم‌نت</title>
-    <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: sans-serif;
-            direction: rtl;
-        }
-
-        .system {
-            background-color: #1e1e1e;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-        }
-
-        .btn {
-            background-color: #333;
-            color: #fff;
-            padding: 5px 15px;
-            border: none;
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .btn:hover {
-            background-color: #555;
-        }
-    </style>
+    <link rel="stylesheet" href="../asset/style.css">
 </head>
 
 <body>
