@@ -1,69 +1,80 @@
+<?php
+// اتصال به دیتابیس
+$conn = new mysqli("localhost", "root", "", "gamenet");
+if ($conn->connect_error) {
+    die("خطا در اتصال به دیتابیس: " . $conn->connect_error);
+}
+
+// گرفتن لیست سیستم‌ها
+$sql = "SELECT * FROM systems";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="fa">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مدیریت سیستم‌های گیم‌نت</title>
-    <link rel="stylesheet" href="../asset/style.css">
-
+    <title>گیم‌نت</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: sans-serif;
+            direction: rtl;
+        }
+        .system {
+            background-color: #1e1e1e;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+        }
+        .btn {
+            background-color: #333;
+            color: #fff;
+            padding: 5px 15px;
+            border: none;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
-
 <body>
 
-    <!-- هدر -->
-    <header>
-        مدیریت سیستم‌های گیم‌نت
-    </header>
+<h2>لیست سیستم‌ها</h2>
 
-    <!-- فرم افزودن سیستم -->
-    <div class="add-system">
-        <h3>افزودن سیستم جدید</h3>
-        <input type="text" id="newName" placeholder="نام سیستم" />
-        <input type="number" id="newCost" placeholder="هزینه/ثانیه" />
-        <input type="text" id="newDate" placeholder="تاریخ آخرین سرویس" />
-        <button onclick="addSystem()">افزودن سیستم</button>
+<?php while ($row = $result->fetch_assoc()): ?>
+    <div class="system">
+        <h3><?php echo $row['name']; ?></h3>
+        <p>تاریخ آخرین سرویس: <?php echo $row['last_service_date']; ?></p>
+        <p>هزینه هر ثانیه: <?php echo $row['price_per_second']; ?> تومان</p>
+        <button class="btn" onclick="startTimer(<?php echo $row['id']; ?>)">شروع</button>
+        <button class="btn" onclick="endTimer(<?php echo $row['id']; ?>)">پایان</button>
+        <button class="btn" onclick="showDetails(<?php echo $row['id']; ?>)">جزئیات</button>
     </div>
+<?php endwhile; ?>
 
-    <!-- جدول سیستم‌ها -->
-    <table id="systemTable">
-        <thead>
-            <tr>
-                <th>نام سیستم</th>
-                <th>هزینه/ثانیه</th>
-                <th>تاریخ سرویس</th>
-                <th>عملیات</th>
-            </tr>
-        </thead>
-        <tbody id="systemList">
-            <!-- سیستم‌ها به صورت داینامیک اضافه می‌شوند -->
-        </tbody>
-    </table>
+<script>
+// فقط نمایش پیام فعلا، بعدا این‌ها با AJAX یا PHP تکمیل میشن
+function startTimer(id) {
+    let duration = prompt("مدت زمان تقریبی استفاده (به ثانیه):");
+    if (duration) {
+        // اینجا میشه AJAX زد یا فرم مخفی فرستاد
+        alert("سیستم " + id + " برای " + duration + " ثانیه شروع شد.");
+    }
+}
 
-    <!-- Modal نمایش جزئیات -->
-    <div class="details-modal" id="detailsModal">
-        <div class="details-content">
-            <h3>جزئیات پرداخت‌ها</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>تاریخ</th>
-                        <th>ساعت شروع</th>
-                        <th>ساعت پایان</th>
-                        <th>مبلغ دریافتی</th>
-                    </tr>
-                </thead>
-                <tbody id="detailsList">
-                    <!-- جزئیات پرداخت‌ها در اینجا اضافه می‌شوند -->
-                </tbody>
-            </table>
-            <button class="close-btn" onclick="closeDetails()">بستن</button>
-        </div>
-    </div>
-    <!-- link js -->
-    <script src="../asset/function.js">
-    </script>
+function endTimer(id) {
+    alert("سیستم " + id + " به پایان رسید. محاسبه هزینه...");
+}
+
+function showDetails(id) {
+    window.location.href = "details.php?system_id=" + id;
+}
+</script>
 
 </body>
-
 </html>
