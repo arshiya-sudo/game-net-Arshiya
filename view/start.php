@@ -21,4 +21,16 @@
         echo "این سیستم در حال حاضر در حال استفاده است.";
     }
     ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../asset/style-s.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        
+    </body>
+    </html>
     <br><a href="index.php">بازگشت</a>

@@ -11,7 +11,7 @@ body {
     display: inline-block;
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(151, 75, 75, 0.1);
     font-size: 20px;
     color: #333;
 }
@@ -20,7 +20,7 @@ a {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #3498db;
+    background-color: #db3434c0;
     color: white;
     text-decoration: none;
     border-radius: 8px;
