@@ -1,3 +1,4 @@
+
 <?php
 // اتصال به دیتابیس
 $conn = new mysqli("localhost", "root", "", "gamenet");
@@ -35,6 +36,7 @@ $result = $conn->query($sql);
             <button class="btn" onclick="location.href='end.php?system_id=<?php echo $row['id']; ?>'">پایان</button>
             <button class="btn" onclick="showDetails(<?php echo $row['id']; ?>)">جزئیات</button>
         </div>
+        
     <?php endwhile; ?>
 
     <script>

@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700&display=swap');
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Vazirmatn', sans-serif;
+    direction: rtl;
+    margin: 0;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    font-size: 32px;
+    color: #ffcc00;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 22px;
+    color: #00e5ff;
+    margin: 30px 0 10px;
+}
+
+a {
+    color: #00c3ff;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* فرم افزودن سیستم */
+form {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    margin: 15px 0;
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"] {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #2a2a2a;
+    color: #fff;
+    outline: none;
+    transition: all 0.3s;
+}
+
+input:focus {
+    background-color: #333333;
+    box-shadow: 0 0 8px #00e5ff;
+}
+
+/* دکمه‌ها */
+.btn {
+    background-color: #00aaff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #008ecc;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 174, 255, 0.5);
+}
+
+/* باکس هر سیستم */
+.system {
+    background-color: #252525;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    width: 90%;
+    max-width: 550px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
