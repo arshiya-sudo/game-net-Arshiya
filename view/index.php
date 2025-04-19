@@ -3,105 +3,126 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../././asset/style.css">
-    <title>مدیریت گیم‌نت</title>
+    <link rel="stylesheet" href="../asset/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت سیستم‌های گیم‌نت</title>
 
 </head>
 
 <body>
 
-    <h2>💻 مدیریت سیستم‌های گیم‌نت 💻</h2>
+    <!-- هدر -->
+    <header>
+        مدیریت سیستم‌های گیم‌نت
+    </header>
 
-    <table>
+    <!-- بخش افزودن سیستم -->
+    <div class="add-system">
+        <h3>افزودن سیستم جدید</h3>
+        <input type="text" id="newName" placeholder="نام سیستم" />
+        <input type="number" id="newCost" placeholder="هزینه/ثانیه" />
+        <input type="text" id="newDate" placeholder="تاریخ آخرین سرویس" />
+        <button onclick="addSystem()">افزودن سیستم</button>
+    </div>
+
+    <!-- جدول سیستم‌ها -->
+    <table id="systemTable">
         <thead>
             <tr>
                 <th>نام سیستم</th>
-                <th>تایمر</th>
+                <th>هزینه/ثانیه</th>
+                <th>تاریخ سرویس</th>
                 <th>عملیات</th>
             </tr>
         </thead>
-        <tbody>
-            <!-- سیستم 1 -->
-            <tr>
-                <td>سیستم 1</td>
-                <td class="timer" id="timer-1">--:--</td>
-                <td>
-                    <button onclick="startTimer(1)">شروع</button>
-                    <button onclick="stopTimer(1)">پایان</button>
-                    <button onclick="showDetails(1)">جزئیات</button>
-                </td>
-            </tr>
-
-            <!-- سیستم 2 -->
-            <tr>
-                <td>سیستم 2</td>
-                <td class="timer" id="timer-2">--:--</td>
-                <td>
-                    <button onclick="startTimer(2)">شروع</button>
-                    <button onclick="stopTimer(2)">پایان</button>
-                    <button onclick="showDetails(2)">جزئیات</button>
-                </td>
-            </tr>
+        <tbody id="systemList">
+            <!-- سیستم‌ها به صورت داینامیک اضافه می‌شوند -->
         </tbody>
     </table>
-    <!-- start js -->
+
     <script>
-        // نگهداری تایمرها با id سیستم
-        const timers = {};
-
-        // تابع شروع تایمر
-        function startTimer(id) {
-            const minutes = prompt("⏱ مدت زمان تقریبی (دقیقه):");
-            if (!minutes || isNaN(minutes) || minutes <= 0) {
-                return alert("لطفاً یک عدد معتبر وارد کنید.");
+        let systems = [{
+                id: 1,
+                name: "سیستم 1",
+                cost: 3,
+                lastService: "1402/10/01"
+            },
+            {
+                id: 2,
+                name: "سیستم 2",
+                cost: 2,
+                lastService: "1402/11/15"
             }
-            // تبدیل دقیه به ثانیه
-            let totalSeconds = parseInt(minutes) * 60;
-            const timerEl = document.getElementById("timer-" + id);
+        ];
 
-            // حذف تایمر قبلی اگر وجود داشته
-            if (timers[id]) clearInterval(timers[id]);
+        function renderSystems() {
+            const list = document.getElementById("systemList");
+            list.innerHTML = "";
 
-            // شروع شمارش معکوس
-            timers[id] = setInterval(() => {
-                const mins = Math.floor(totalSeconds / 60);
-                const secs = totalSeconds % 60;
-                timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            systems.forEach(system => {
+                const row = document.createElement("tr");
 
-                if (totalSeconds <= 0) {
-                    clearInterval(timers[id]);
-                    alert("✅ زمان سیستم " + id + " به پایان رسید.");
-                }
-
-                totalSeconds--;
-            }, 1000);
+                row.innerHTML = `
+          <td>${system.name}</td>
+          <td>${system.cost} تومان</td>
+          <td>${system.lastService}</td>
+          <td>
+            <button class="btn btn-edit" onclick="editSystem(${system.id})"><i class="fas fa-edit icon"></i> ویرایش</button>
+            <button class="btn btn-delete" onclick="deleteSystem(${system.id})"><i class="fas fa-trash-alt icon"></i> حذف</button>
+          </td>
+        `;
+                list.appendChild(row);
+            });
         }
 
-        // تابع پایان تایمر
-        function stopTimer(id) {
-            if (timers[id]) {
-                clearInterval(timers[id]);
-                document.getElementById("timer-" + id).textContent = "--:--";
-                alert("⛔ تایمر سیستم " + id + " متوقف شد.");
-            } else {
-                alert("❗ تایمری برای این سیستم فعال نیست.");
+        function deleteSystem(id) {
+            if (confirm("آیا مطمئن هستید؟")) {
+                systems = systems.filter(sys => sys.id !== id);
+                renderSystems();
             }
         }
 
-        // تابع نمایش جزئیات (فعلاً فقط پیام)
-        function showDetails(id) {
-            alert("📋 جزئیات پرداختی‌های سیستم " + id + " در آینده نمایش داده می‌شود.");
+        function editSystem(id) {
+            const sys = systems.find(s => s.id === id);
+            const newName = prompt("نام جدید سیستم:", sys.name);
+            const newCost = prompt("هزینه جدید به ازای هر ثانیه:", sys.cost);
+            const newDate = prompt("تاریخ آخرین سرویس:", sys.lastService);
+
+            if (newName && newCost && newDate) {
+                sys.name = newName;
+                sys.cost = parseInt(newCost);
+                sys.lastService = newDate;
+                renderSystems();
+            }
         }
+
+        function addSystem() {
+            const name = document.getElementById("newName").value;
+            const cost = parseInt(document.getElementById("newCost").value);
+            const date = document.getElementById("newDate").value;
+
+            if (!name || !cost || !date || cost <= 0) {
+                alert("لطفاً همه فیلدها را پر کنید.");
+                return;
+            }
+
+            const newId = systems.length > 0 ? systems[systems.length - 1].id + 1 : 1;
+            systems.push({
+                id: newId,
+                name,
+                cost,
+                lastService: date
+            });
+
+            document.getElementById("newName").value = "";
+            document.getElementById("newCost").value = "";
+            document.getElementById("newDate").value = "";
+
+            renderSystems();
+        }
+
+        renderSystems();
     </script>
-    <!-- end js -->
-    <div style="text-align:center; margin-top: 50px;">
-        <a href="manage.html" style="text-decoration: none;">
-            <button class="btn-manage">مدیریت سیستم‌ها ⚙️</button>
-        </a>
-    </div>
-
-
-
 
 </body>
 
