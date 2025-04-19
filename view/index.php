@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../asset/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مدیریت سیستم‌های گیم‌نت</title>
+    <link rel="stylesheet" href="../asset/style.css">
 
 </head>
 
@@ -16,7 +16,7 @@
         مدیریت سیستم‌های گیم‌نت
     </header>
 
-    <!-- بخش افزودن سیستم -->
+    <!-- فرم افزودن سیستم -->
     <div class="add-system">
         <h3>افزودن سیستم جدید</h3>
         <input type="text" id="newName" placeholder="نام سیستم" />
@@ -40,88 +40,139 @@
         </tbody>
     </table>
 
+    <!-- Modal نمایش جزئیات -->
+    <div class="details-modal" id="detailsModal">
+        <div class="details-content">
+            <h3>جزئیات پرداخت‌ها</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>تاریخ</th>
+                        <th>ساعت شروع</th>
+                        <th>ساعت پایان</th>
+                        <th>مبلغ دریافتی</th>
+                    </tr>
+                </thead>
+                <tbody id="detailsList">
+                    <!-- جزئیات پرداخت‌ها در اینجا اضافه می‌شوند -->
+                </tbody>
+            </table>
+            <button class="close-btn" onclick="closeDetails()">بستن</button>
+        </div>
+    </div>
+
     <script>
-        let systems = [{
-                id: 1,
-                name: "سیستم 1",
-                cost: 3,
-                lastService: "1402/10/01"
-            },
-            {
-                id: 2,
-                name: "سیستم 2",
-                cost: 2,
-                lastService: "1402/11/15"
+        // آرایه‌ای برای ذخیره سیستم‌ها
+        let systems = [];
+
+        // اضافه کردن سیستم جدید
+        function addSystem() {
+            const name = document.getElementById("newName").value;
+            const cost = document.getElementById("newCost").value;
+            const date = document.getElementById("newDate").value;
+
+            if (name && cost && date) {
+                const system = {
+                    name,
+                    cost,
+                    date,
+                    details: [] // آرایه‌ای برای ذخیره جزئیات هر سیستم
+                };
+
+                systems.push(system);
+                renderSystems();
+            } else {
+                alert("لطفا همه فیلدها را پر کنید.");
             }
-        ];
+        }
 
+        // نمایش سیستم‌ها در جدول
         function renderSystems() {
-            const list = document.getElementById("systemList");
-            list.innerHTML = "";
+            const systemList = document.getElementById("systemList");
+            systemList.innerHTML = '';
 
-            systems.forEach(system => {
+            systems.forEach((system, index) => {
                 const row = document.createElement("tr");
 
                 row.innerHTML = `
           <td>${system.name}</td>
-          <td>${system.cost} تومان</td>
-          <td>${system.lastService}</td>
+          <td>${system.cost}</td>
+          <td>${system.date}</td>
           <td>
-            <button class="btn btn-edit" onclick="editSystem(${system.id})"><i class="fas fa-edit icon"></i> ویرایش</button>
-            <button class="btn btn-delete" onclick="deleteSystem(${system.id})"><i class="fas fa-trash-alt icon"></i> حذف</button>
+            <button onclick="showDetails(${index})">جزئیات</button>
+            <button onclick="editSystem(${index})">ویرایش</button>
+            <button onclick="deleteSystem(${index})">حذف</button>
           </td>
         `;
-                list.appendChild(row);
+
+                systemList.appendChild(row);
             });
         }
 
-        function deleteSystem(id) {
-            if (confirm("آیا مطمئن هستید؟")) {
-                systems = systems.filter(sys => sys.id !== id);
+        // نمایش جزئیات سیستم
+        function showDetails(index) {
+            const system = systems[index];
+            const detailsList = document.getElementById("detailsList");
+            detailsList.innerHTML = '';
+
+            // افزودن رکوردهای پرداخت به جدول جزئیات
+            system.details.forEach(detail => {
+                const row = document.createElement("tr");
+
+                // اطلاعات جزئیات پرداخت شامل تاریخ، ساعت شروع، ساعت پایان و مبلغ دریافتی
+                row.innerHTML = `
+          <td>${detail.date}</td>
+          <td>${detail.startTime}</td>
+          <td>${detail.endTime}</td>
+          <td>${detail.amount}</td>
+        `;
+
+                detailsList.appendChild(row);
+            });
+
+            // نمایش modal جزئیات
+            document.getElementById("detailsModal").style.display = "flex";
+        }
+
+        // بستن modal جزئیات
+        function closeDetails() {
+            document.getElementById("detailsModal").style.display = "none";
+        }
+
+        // ویرایش سیستم
+        function editSystem(index) {
+            const system = systems[index];
+            const name = prompt("نام سیستم جدید:", system.name);
+            const cost = prompt("هزینه/ثانیه جدید:", system.cost);
+            const date = prompt("تاریخ سرویس جدید:", system.date);
+
+            if (name && cost && date) {
+                systems[index] = {
+                    name,
+                    cost,
+                    date,
+                    details: system.details // جزئیات سیستم حفظ می‌شود
+                };
                 renderSystems();
             }
         }
 
-        function editSystem(id) {
-            const sys = systems.find(s => s.id === id);
-            const newName = prompt("نام جدید سیستم:", sys.name);
-            const newCost = prompt("هزینه جدید به ازای هر ثانیه:", sys.cost);
-            const newDate = prompt("تاریخ آخرین سرویس:", sys.lastService);
-
-            if (newName && newCost && newDate) {
-                sys.name = newName;
-                sys.cost = parseInt(newCost);
-                sys.lastService = newDate;
-                renderSystems();
-            }
-        }
-
-        function addSystem() {
-            const name = document.getElementById("newName").value;
-            const cost = parseInt(document.getElementById("newCost").value);
-            const date = document.getElementById("newDate").value;
-
-            if (!name || !cost || !date || cost <= 0) {
-                alert("لطفاً همه فیلدها را پر کنید.");
-                return;
-            }
-
-            const newId = systems.length > 0 ? systems[systems.length - 1].id + 1 : 1;
-            systems.push({
-                id: newId,
-                name,
-                cost,
-                lastService: date
-            });
-
-            document.getElementById("newName").value = "";
-            document.getElementById("newCost").value = "";
-            document.getElementById("newDate").value = "";
-
+        // حذف سیستم
+        function deleteSystem(index) {
+            systems.splice(index, 1);
             renderSystems();
         }
 
-        renderSystems();
+        // اضافه کردن یک رکورد پرداخت به سیستم
+        function addPaymentDetail(systemIndex, date, startTime, endTime, amount) {
+            const detail = {
+                date,
+                startTime,
+                endTime,
+                amount
+            };
+            systems[systemIndex].details.push(detail); // اضافه کردن رکورد به سیستم
+        }
     </script>
 
 </body>
