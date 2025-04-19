@@ -1,4 +1,4 @@
-<?php
+    <?php
 $conn = new mysqli("localhost", "root", "", "gamenet");
 if ($conn->connect_error) {
     die("خطا در اتصال: " . $conn->connect_error);

@@ -1,161 +1,43 @@
-  /* قالب صفحه با رنگ تیره و راست چین */
-  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #2d2d2d;
-    /* رنگ تیره برای صفحه */
-    color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    direction: rtl;
-    /* راست چین کردن کل صفحه */
+< !DOCTYPE html><html lang="fa"><head><meta charset="UTF-8"><meta name="viewport"content="width=device-width, initial-scale=1.0"><title>مدیریت سیستم‌ها</title><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"rel="stylesheet"><style>body {
+    background-color: #1a1a1a;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
 }
 
-header {
-    background-color: #444;
-    padding: 15px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.add-system {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.add-system input,
-.add-system button {
-    margin: 10px;
-    padding: 12px;
+.btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 16px;
-    border-radius: 5px;
-    outline: none;
+    transition: all 0.3s ease;
 }
 
-.add-system input {
-    width: 200px;
-}
-
-/* طراحی دکمه افزودن سیستم */
-.add-system button {
-    background-color: #ff5722;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.add-system button:hover {
-    background-color: #e64a19;
+.btn:hover {
+    background-color: #575757;
     transform: scale(1.05);
 }
 
-.add-system button:active {
-    background-color: #d84315;
-    transform: scale(1);
-}
-
-/* طراحی جدول با رنگ روشن */
-table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: #fff;
-    /* جدول با رنگ روشن */
-    color: #333;
-    /* رنگ متنی برای جدول */
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-th,
-td {
-    padding: 15px;
-    text-align: center;
-    border: 1px solid #ddd;
-    /* خط‌های مرزی خاکستری روشن */
-}
-
-th {
-    background-color: #f2f2f2;
-    /* رنگ پس‌زمینه برای هدر جدول */
-}
-
-td {
-    background-color: #fafafa;
-    /* رنگ پس‌زمینه برای سلول‌ها */
-}
-
-/* طراحی دکمه‌های جدول */
-button {
-    background-color: #ff5722;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-    background-color: #e64a19;
-    transform: scale(1.05);
-}
-
-button:active {
-    background-color: #d84315;
-    transform: scale(1);
-}
-
-/* Modal نمایش جزئیات */
-.details-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.details-content {
-    background-color: #444;
+.box {
+    background-color: #262626;
     padding: 20px;
-    width: 60%;
-    border-radius: 10px;
-    color: #f0f0f0;
+    border-radius: 8px;
+    margin: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.details-content table {
-    width: 100%;
+.systems-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
 }
 
-.details-content th,
-.details-content td {
-    padding: 10px;
+h1,
+h2 {
+    color: #ffcc00;
 }
 
-.close-btn {
-    background-color: #ff5722;
-    color: #fff;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.close-btn:hover {
-    background-color: #e64a19;
-    transform: scale(1.05);
-}
-
-.close-btn:active {
-    background-color: #d84315;
-    transform: scale(1);
-}
+</style></head><body><h1>لیست سیستم‌ها</h1><div class="systems-list"><div class="box"><h2>سیستم شماره 1</h2><p>تاریخ آخرین سرویس: 2025/04/10</p><p>هزینه بازی در هر ثانیه: 500 تومان</p><button class="btn"onclick="startTimer()">شروع</button><button class="btn"onclick="stopTimer()">پایان</button><button class="btn"onclick="showDetails()">جزئیات</button></div>< !-- سایر سیستم‌ها --></div></body></html>

@@ -51,6 +51,9 @@ $result = $conn->query($sql);
 
     <h2>لیست سیستم‌ها</h2>
 
+<!-- دکمه مدیریت -->
+<button class="btn" onclick="location.href='manage_systems.php'">مدیریت سیستم‌ها</button>
+
     <?php while ($row = $result->fetch_assoc()): ?>
         <div class="system">
             <h3><?php echo $row['name']; ?></h3>
